@@ -13,6 +13,10 @@ This project uses machine learning models to predict the price of houses based o
 - Saving the trained model (`model.pkl`)
 - Prediction using saved model
 
+## Screenshot
+
+![House Price Prediction Screenshot](images/Screenshot%202025-05-16%20211018.png)
+
 ## Installation
 
 1. Clone the repository:
