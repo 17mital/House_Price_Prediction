@@ -15,7 +15,7 @@ This project uses machine learning models to predict the price of houses based o
 
 ## Screenshot
 
-![House Price Prediction Screenshot](images/Screenshot%202025-05-16%20211018.png)
+![House Price Prediction Screenshot](Screenshot%202025-05-16%20211018.png)
 
 ## Installation
 
