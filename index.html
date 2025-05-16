@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+        }
+        button {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #e68900;
+        }
+        #result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>House Price Prediction</h2>
+        <form id="predictionForm">
+            <div class="input-group">
+                <label>Longitude (East/West Location)</label>
+                <input type="number" step="any" name="longitude" required>
+            </div>
+            <div class="input-group">
+                <label>Latitude (North/South Location)</label>
+                <input type="number" step="any" name="latitude" required>
+            </div>
+            <div class="input-group">
+                <label>Average Age of Houses</label>
+                <input type="number" step="any" name="housing_median_age" required>
+            </div>
+            <div class="input-group">
+                <label>Total Rooms Available</label>
+                <input type="number" step="any" name="total_rooms" required>
+            </div>
+            <div class="input-group">
+                <label>Total Bedrooms</label>
+                <input type="number" step="any" name="total_bedrooms" required>
+            </div>
+            <div class="input-group">
+                <label>Total Population in the Area</label>
+                <input type="number" step="any" name="population" required>
+            </div>
+            <div class="input-group">
+                <label>Number of Households</label>
+                <input type="number" step="any" name="households" required>
+            </div>
+            <div class="input-group">
+                <label>Median Income of Residents</label>
+                <input type="number" step="any" name="median_income" required>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        document.getElementById("predictionForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+            let jsonData = {};
+            formData.forEach((value, key) => { jsonData[key] = value; });
+            
+            let response = await fetch("/predict", {
+                method: "POST",
+                body: new URLSearchParams(jsonData)
+            });
+            
+            let result = await response.json();
+            document.getElementById("result").innerHTML = `Predicted Price: $${result.predicted_price}`;
+        });
+    </script>
+</body>
+</html>
